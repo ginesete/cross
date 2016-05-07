@@ -4,6 +4,8 @@ use std::time::Duration;
 mod gpio;
 use gpio::*;
 
+// This main function illustrates how to access a GPIO resource through
+// sysfs, using the provided mod gpio.
 fn main() {
     let pin = GPIO::new(26);
     pin.initialize();
@@ -17,17 +19,15 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use gpio::*;
-    use std::thread::sleep;
-    use std::time::Duration;
 
+// Guess what happens when we try to run all these unit tests on a
+// shared hardware resource...
     #[test]
     #[ignore]
     fn tries_to_open_and_close_gpio_port() {
         let pin = GPIO::new(26);
         pin.initialize();
-        sleep(Duration::from_millis(50));
         pin.release();
-        sleep(Duration::from_millis(50));
     }
 
     #[test]
@@ -36,9 +36,7 @@ mod tests {
     fn double_opening_a_port_should_fail() {
         let pin = GPIO::new(26);
         pin.initialize();
-        sleep(Duration::from_millis(50));
         pin.initialize();
-        sleep(Duration::from_millis(50));
     }
 
     #[test]
@@ -47,8 +45,6 @@ mod tests {
     fn double_releasing_a_port_should_fail() {
         let pin = GPIO::new(26);
         pin.release();
-        sleep(Duration::from_millis(50));
         pin.release();
-        sleep(Duration::from_millis(50));
     }
 }

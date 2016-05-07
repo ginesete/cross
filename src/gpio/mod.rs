@@ -3,6 +3,12 @@ use std::io::prelude::*;
 use std::thread::sleep;
 use std::time::Duration;
 
+// This mod is rather weak, and it is only useful for illustrative purposes.
+// For instance, it is vulnerable to panicking when a double initialization
+// or a double release occur. This way, it is easy to learn how sysfs is
+// behaving looking in the console, and fixing errors by hand to see how
+// it is done.
+
 #[derive(Debug)]
 pub struct GPIO {
     pin: u32,
