@@ -64,7 +64,15 @@ impl GPIO {
             .append(true)
             .open(file_path)
             .unwrap();
+
+        // Very weak. Good for our learning purposes regarding sysfs
         file.write_all(buf).expect("Write error");
+
+        // A bit more failsafe. At least does not fail when resource is busy
+        // match file.write_all(buf) {
+        //     Ok(_) => {},
+        //     Err(_) => {}
+        // }
     }
 }
 
